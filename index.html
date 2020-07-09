@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1 shrink-to-fit=no"
+    />
+
+    <!--bootstrap-->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <!--font-awesome-->
+    <link
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+      crossorigin="anonymous"
+    />
+    <!--socketio-->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"
+    ></script>
+    <title>Flak</title>
+
+    <link rel="stylesheet" type="text/css" href="css\main.css" />
+  </head>
+
+  <body>
+    <main>
+      <div class="container-fluid">
+        <!--Header sidebar-->
+        <div class="row">
+          <div class="col-md-3 col-sm-4 sidebar3">
+            <div class="name">
+              <h1><i class="fa fa-commenting-o" aria-hidden="true"></i>
+              Flak</h1>
+              <p>Instant ChatApp</p>
+            </div>
+              <div class="container" id="DisplayName">
+                {% if name %}<h2>Hello <span style="color: #65d3fd;">{{ name }}</span>, nice to see you again :)</h2>{% endif %}
+                <div id="user-data" data-username="{{ name }}"></div>
+              </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-3 col-sm-4 sidebar3">
+            <div class="left-navigation">  
+               <!--channel list-->
+              <ul>
+                <li class="list">
+                  <div class="dropdown">
+                    <h3><i class="fa fa-list" aria-hidden="true"></i>My Channels</h3>
+                  </div>
+                  <div id="channelContainer" style="{% if name %}{% else %} display: none; {% endif %}"
+                  id="createChannel">
+                  <form class="form-inline formChannel">
+                    <input
+                      id="channel"
+                      type="text"
+                      autocomplete="off" 
+                      class="form-control"
+                      placeholder="New Channel"
+                    /><button class="btn" type="submit">
+                      <i class="fa fa-plus pull-right" aria-hidden="true"></i>
+                    </button>
+                    <small id="channelMessage" style="color: #096bff"></small>
+                  </form>
+                  <ul class="submenu hide" id="channelList">
+                    {% if channels %}
+                      {% for channel in channels %}
+                      <li class="channel-list-item">{{ channel.name }}</li>
+                      {% endfor %}
+                      {% else %}
+                      <li>- No available Channels -</li>
+                      {% endif %}
+                      </ul>
+                  </div>
+                </li>
+              </ul>
+              <!--user info-->
+              <ul style="padding-top: 50px;">
+                <li>
+                  <i class="fa fa-user-circle-o" aria-hidden="true"></i>Profile Settings
+                </li>
+                <div class="user-card" id="form">
+                  {% if not name %}
+                  <form class="formDisplay form-inline">
+                    <div class="form-group ">
+                      <lable for="name"  style="color: white;">Please, enter your Username</label>
+                        <br>
+                        <input id="name" type="text" class="form-control" placeholder="Enter Username">
+                        <button class="btn" type="submit" style="padding-right: 10px; color:white">Enter</button>
+                    </div>
+                  </form>
+                  {% endif %}
+                </div>
+                <li>
+                  <i class="fa fa-power-off" aria-hidden="true"></i>Logout
+                </li>
+              </ul>
+            </div>
+            <p style="font-size: 14px; text-align: center;">2020 Copyright</p>
+          </div>
+        </div>
+        <!--chat window-->
+        <div class="col-md-8 main-content">
+            <div id="chatWindow" class="container chatWindow" style="visibility: hidden;">
+              <div class="container text-muted" id="title"></div>
+              <div class="container chatMessages">
+                <br>
+                <ul class="list-unstyled" id="chatMessages">
+            
+                </ul>
+              </div>
+              <div class="container chatTyping">
+                <form id="formTyping">
+                  <div class="form-row">
+                    <div class="col-11">
+                      <input id="message" type="text" autocomplete="off" name="messageTyping" placeholder="Type message"
+                        class="form-control">
+                    </div>
+                    <div class="col-1">
+                      <button type="submit" class="btn btn-primary">Send</button>
+                    </div>
+                  </div>
+              </div>
+            </div>
+        </div>    
+        </div>
+    </main>
+
+    <!--jquery.js-->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <!--popper.js-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <!--bootstrap.js-->
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+    <!--handlebars-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+    <!--javascript-->
+    <script type="text/javascript" src="script\main.js"></script>
+  </body>
+</html>

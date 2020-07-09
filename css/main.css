@@ -1,0 +1,112 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  height: 100vh;
+}
+
+.sidebar3 {
+  padding-top: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #809dd0;
+}
+.sidebar3 p {
+  color: white;
+}
+h1 {
+  font-size: 24px;
+  color: white;
+}
+h2,
+h3 {
+  font-size: 17px;
+  color: white;
+}
+/* app name*/
+.name {
+  display: inline;
+  clear: right;
+  padding: 5px;
+  vertical-align: center;
+  padding-top: 10px;
+  text-align: center;
+}
+/* Style the form - display items horizontally */
+.form-inline {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+/* Style the input fields */
+.form-inline input {
+  vertical-align: middle;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  margin: 15px 0 15px 0;
+  border-radius: 5px;
+}
+
+/* Style the submit button */
+.form-inline button {
+  border-color: #f3a827;
+  margin-left: 10px;
+  padding: 5px 0 5px 10px;
+}
+i {
+  display: inline-block;
+  margin-right: 1em;
+  color: #f3a827;
+}
+li {
+  list-style-type: none;
+  padding: 5px;
+  border-bottom: 1px solid #fdfdfd75;
+  color: white;
+}
+ul {
+  padding-left: 0px;
+}
+.dropdown .fa-plus {
+  border: 1px solid #848fd8;
+  padding: 4px;
+  margin-top: -2px;
+  margin-right: 0px;
+}
+
+.list {
+  padding-left: 20px;
+}
+.dropdown {
+  margin-left: -15px;
+}
+.submenu > li {
+  display: list-item;
+  list-style-type: square;
+}
+.submenu {
+  padding-left: 12px;
+}
+.submenu > li:hover {
+  color: #f3a827;
+}
+li:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+}
+.main-content {
+  text-align: right;
+}
+.main-content > p > a {
+  color: white;
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+}
