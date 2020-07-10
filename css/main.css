@@ -104,6 +104,52 @@ li:hover {
 .main-content > p > a {
   color: white;
 }
+div.chatWindow {
+  height: 20em;
+  border: 1px solid #809dd0;
+  border-radius: 5px;
+}
+div.chatMessages {
+  height: 15em;
+  background-color: blue;
+  border-radius: 5px;
+  overflow: scroll;
+}
+div.chatTyping {
+  height: 5em;
+}
+@keyframes hide {
+  0% {
+    opacity: 1;
+    height: 100%;
+    line-height: 5px;
+  }
+  75% {
+    opacity: 0;
+    height: 100%;
+    line-height: 5px;
+  }
+  100% {
+    opacity: 0;
+    height: 0px;
+    line-height: 0px;
+    padding: 0px;
+    margin-bottom: 0px;
+  }
+}
+.hiddingMessage {
+  margin-bottom: 5px;
+  animation-name: hide;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
+}
+.message {
+  font-size: 0.9rem;
+}
+.delete {
+  cursor: pointer;
+}
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
 }

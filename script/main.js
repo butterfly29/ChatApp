@@ -1,3 +1,7 @@
+const {
+    parseWithoutProcessing
+} = require("handlebars");
+
 window.onload = function () {
 
     $('.dropdown').click(function () {
@@ -5,8 +9,9 @@ window.onload = function () {
     });
 }
 document.addEventListener("DOMContentLoaded", () => {
-    if (document.querySelector(".formDisplay")) {
-        document.querySelector(".formDisplay").onsubmit = () => {
+    //creating a new username
+    if (document.querySelector("#formDisplay")) {
+        document.querySelector("#formDisplay").onsubmit = () => {
             //Create new AJAX request
             let request = new XMLHttpRequest();
 
@@ -36,4 +41,5 @@ document.addEventListener("DOMContentLoaded", () => {
             return false;
         }
     }
+
 });

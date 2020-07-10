@@ -1,7 +1,7 @@
 import os
 
 from datetime import timedelta
-from flask import Flask, render_template, jsonify, Request, url_for, redirect, session
+from flask import Flask, render_template, jsonify, request, url_for, redirect, session
 from flask_socketio import SocketIO, emit, send
 
 from flask_session import Session
@@ -41,12 +41,20 @@ def name():
 
 
 @app.route("/lastChannel", methods=["POST"])
+def lastChannel():
+    """Remember Last Channel visited in Session"""
+    channel = request.form.get("lastChannel")
+    session["lastChannel"] = channel
+    return '', 204
+
+
+@app.route("/channel", methods=["POST"])
 def channel():
-    channel = request.form.get("channel")
+    channel = request.form.get('channel')
     # If element already exist, NOT create another with the same name
     for elem in channels:
         if channel in elem.name:
-            return jsonify({"success": False, })
+            return jsonify({"success": False})
     # If no channel named the same, then create a new one
     newChannel = Channel(channel)
     channels.append(newChannel)
@@ -78,10 +86,11 @@ def chat(data):
     # Check all existing channels seeking for the same name
     for checkChannel in channels:
         # If exist then append the new message else emit a Not success message
-        if checkChannel.name == channels:
+        if checkChannel.name == channel:
             time = '{:%H:%M:%S}'.format(datetime.datetime.now())
             sender = session["name"]
             checkChannel.newMessage(message, sender, channel, time)
+
             last_message = checkChannel.messages[-1]
             emit("update", last_message, broadcast=True)
             return
@@ -93,10 +102,12 @@ def conect(data):
     channel = data["channel"]
     # Checking for an existing channel with that same name
     for checkChannel in channels:
-        oldMessages = checkChannel.messages
-        name = session["name"]
-        emit("updataChat", (oldMessages, name), broadcast=True)
-        return
+        # If exist, charge all old messages stored there and emit
+        if checkChannel.name == channel:
+            oldMessages = checkChannel.messages
+            name = session["name"]
+            emit("updateChat", (oldMessages, name), broadcast=True)
+            return
     # Else, emit a notFound message
     emit("updateChat", 'notFound', broadcast=True)
 
