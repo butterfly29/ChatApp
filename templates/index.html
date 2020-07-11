@@ -42,7 +42,7 @@
               Flak</h1>
               <p>Instant ChatApp</p>
             </div>
-              <div class="container" id="DisplayName">
+              <div id="DisplayName" class="container" >
                 {% if name %}<h2>Hello <span style="color: #65d3fd;">{{ name }}</span>, nice to see you again :)</h2>{% endif %}
                 <div id="user-data" data-username="{{ name }}"></div>
               </div>
@@ -55,12 +55,11 @@
                <!--channel list-->
               <ul>
                 <li class="list">
-                  <div class="dropdown">
                     <h3><i class="fa fa-list" aria-hidden="true"></i>My Channels</h3>
-                  </div>
-                  <div id="channelContainer" style="{% if name %}{% else %} display: none; {% endif %}"
+                  <div id="channelContainer" class = "container" {% if name %}{% else %} style="display: none;" {% endif %}
                   id="createChannel">
                   <form id= "formChannel" class="form-inline">
+                    <div class="form-group">
                     <input
                       id="channel"
                       type="text"
@@ -71,8 +70,9 @@
                       <i class="fa fa-plus pull-right" aria-hidden="true"></i>
                     </button>
                     <small id="channelMessage" style="color: #096bff"></small>
+                    </div>
                   </form>
-                  <ul class="submenu hide" id="channelList">
+                  <ul id="channelList" class="submenu" >
                     {% if channels %}
                       {% for channel in channels %}
                       <li class="channel-list-item">{{ channel.name }}</li>
@@ -89,7 +89,7 @@
                 <li>
                   <i class="fa fa-user-circle-o" aria-hidden="true"></i>Profile Settings
                 </li>
-                <div class="user-card" id="form">
+                <div id="form" class="user-card" >
                   {% if not name %}
                   <form id="formDisplay" class="form-inline">
                     <div class="form-group ">
@@ -115,7 +115,7 @@
               <div class="container text-muted" id="title"></div>
               <div class="container chatMessages">
                 <br>
-                <ul class="list-unstyled" id="chatMessages">
+                <ul id="chatMessages" class="list-unstyled" >
             
                 </ul>
               </div>

@@ -81,9 +81,6 @@ ul {
 .list {
   padding-left: 20px;
 }
-.dropdown {
-  margin-left: -15px;
-}
 .submenu > li {
   display: list-item;
   list-style-type: square;
