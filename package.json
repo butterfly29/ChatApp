@@ -16,5 +16,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "nicoleta",
-  "license": "ISC"
+  "license": "ISC",
+  "optionalDependencies": {
+    "bufferutil": "^4.0.1",
+    "utf-8-validate": "^5.0.2"
+  }
 }
