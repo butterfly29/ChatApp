@@ -1,7 +1,3 @@
-const {
-    parseWithoutProcessing
-} = require("handlebars");
-
 document.addEventListener('DOMContentLoaded', () => {
 
     if (document.querySelector('#formDisplay')) {
