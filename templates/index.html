@@ -21,82 +21,117 @@
       integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
       crossorigin="anonymous"
     />
+
+    <link rel="shortcup icon" href="../static/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css" />
     <!--socketio-->
     <script
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"
     ></script>
-    <title>Flak</title>
 
-    <link rel="stylesheet" type="text/css" href="static/css/main.css" />
+    <title>Flak</title>
   </head>
 
   <body>
     <main>
       <div class="container-fluid">
-        <!--Header sidebar-->
         <div class="row">
           <div class="col-md-3 col-sm-4 sidebar3">
             <div class="name">
-              <h1><i class="fa fa-commenting-o" aria-hidden="true"></i>
-              Flak</h1>
+              <h1>
+                <i class="fa fa-commenting-o" aria-hidden="true"></i> Flak
+              </h1>
               <p>Instant ChatApp</p>
             </div>
-              <div id="DisplayName" class="container" >
-                {% if name %}<h2>Hello <span style="color: #65d3fd;">{{ name }}</span>, nice to see you again :)</h2>{% endif %}
-                <div id="user-data" data-username="{{ name }}"></div>
-              </div>
-          </div>
-        </div>
-        
-        <div class="row">
-          <div class="col-md-3 col-sm-4 sidebar3">
-            <div class="left-navigation">  
-               <!--channel list-->
-              <ul>
+            <div id="DisplayName" class="container">
+              {% if name %}
+              <h2>
+                Hello <span style="color: #f3a827;">{{ name }}</span>, nice to
+                see you!
+              </h2>
+              {% endif %}
+              <div id="user-data" data-username="{{ name }}"></div>
+            </div>
+            <div class="left-navigation">
+              <!--channel list-->
+              <ul class="channel-card">
                 <li class="list">
-                    <h3><i class="fa fa-list" aria-hidden="true"></i>My Channels</h3>
-                  <div id="channelContainer" class = "container" {% if name %}{% else %} style="display: none;" {% endif %}
-                  id="createChannel">
-                  <form id= "formChannel" class="form-inline">
-                    <div class="form-group">
-                    <input
-                      id="channel"
-                      type="text"
-                      autocomplete="off" 
-                      class="form-control"
-                      placeholder="New Channel"
-                    /><button class="btn" type="submit">
-                      <i class="fa fa-plus pull-right" aria-hidden="true"></i>
-                    </button>
-                    <small id="channelMessage" style="color: #096bff"></small>
-                    </div>
-                  </form>
-                  <ul id="channelList" class="submenu" >
-                    {% if channels %}
-                      {% for channel in channels %}
+                  <h3 style="margin-left: -15px;">
+                    <i class="fa fa-list" aria-hidden="true"></i>My Channels
+                  </h3>
+                  <div
+                    id="channelContainer"
+                    class="container"
+                    {%
+                    if
+                    name
+                    %}{%
+                    else
+                    %}
+                    style="display: none;"
+                    {%
+                    endif
+                    %}
+                    id="createChannel"
+                  >
+                    <form
+                      id="formChannel"
+                      class="form-inline"
+                      style="margin-left: -20px;"
+                    >
+                      <small id="channelMessage" style="color: white;"></small>
+                      <div class="form-group">
+                        <input
+                          id="channel"
+                          type="text"
+                          autocomplete="off"
+                          class="form-control"
+                          placeholder="New Channel"
+                        /><button class="btn" type="submit">
+                          <i
+                            class="fa fa-plus pull-right"
+                            aria-hidden="true"
+                          ></i>
+                        </button>
+                      </div>
+                    </form>
+                    <ul id="channelList" class="submenu">
+                      {% if channels %} {% for channel in channels %}
                       <li class="channel-list-item">{{ channel.name }}</li>
-                      {% endfor %}
-                      {% else %}
-                      <li>- No available Channels -</li>
+                      {% endfor %} {% else %}
+                      <li>No available Channels</li>
                       {% endif %}
-                      </ul>
+                    </ul>
                   </div>
                 </li>
               </ul>
               <!--user info-->
               <ul style="padding-top: 50px;">
                 <li>
-                  <i class="fa fa-user-circle-o" aria-hidden="true"></i>Profile Settings
+                  <i class="fa fa-user-circle-o" aria-hidden="true"></i>Profile
+                  Settings
                 </li>
-                <div id="form" class="user-card" >
+                <div id="form" class="user-card">
                   {% if not name %}
                   <form id="formDisplay" class="form-inline">
-                    <div class="form-group ">
-                      <label for="name"  style="color: white;">Please, enter your Username</label>
-                      <br>
-                      <input id="name" type="text" class="form-control" placeholder="Enter Username">
-                      <button class="btn" type="submit" style="padding-right: 10px; color:white">Enter</button>
+                    <label for="name" style="color: white; padding-top: 10px;"
+                      >Please, enter your Username</label
+                    >
+                    <div class="form-group">
+                      <input
+                        id="name"
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter Username"
+                      />
+                      <button
+                        class="btn"
+                        type="submit"
+                        style="padding-right: 10px; color: white;"
+                      >
+                        Enter
+                      </button>
                     </div>
                   </form>
                   {% endif %}
@@ -108,34 +143,194 @@
             </div>
             <p style="font-size: 14px; text-align: center;">2020 Copyright</p>
           </div>
-        </div>
-        <!--chat window-->
-        <div class="col-md-8 main-content">
-            <div id="chatWindow" class="container chatWindow" style="visibility: hidden;">
+
+          <!--chat window-->
+          <div class="col-md-8 main-content">
+            <div
+              id="chatWindow"
+              class="container chatWindow"
+              style="visibility: hidden;"
+            >
               <div class="container text-muted" id="title"></div>
               <div class="container chatMessages">
-                <br>
-                <ul id="chatMessages" class="list-unstyled" >
-            
-                </ul>
+                <br />
+                <ul id="chatMessages" class="list-unstyled"></ul>
               </div>
+              <hr />
               <div class="container chatTyping">
                 <form id="formTyping">
                   <div class="form-row">
-                    <div class="col-11">
-                      <input id="message" type="text" autocomplete="off" name="messageTyping" placeholder="Type message"
-                        class="form-control">
-                    </div>
-                    <div class="col-1">
-                      <button type="submit" class="btn btn-primary">Send</button>
-                    </div>
+                    <input
+                      id="message"
+                      type="text"
+                      autocomplete="off"
+                      name="messageTyping"
+                      placeholder="Type message"
+                      class="form-control"
+                    />
+                    <button type="submit" class="btn btn-primary">
+                      Send
+                    </button>
                   </div>
+                </form>
               </div>
             </div>
-        </div>    
+          </div>
         </div>
+      </div>
     </main>
 
+    <!--handlebars-->
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <!--javascript-->
+    <script src="../static/js/main.js" type="text/javascript"></script>
+    <script src="../static/js/channel.js" type="text/javascript"></script>
+
+    <script id="template" type="text/template">
+      {% raw %}<li data-sender="{{ sender }}" class="hiddingMessage message">{{time}} | {{sender}} says: <span id="justMessage">{{message}}</span> &nbsp &nbsp <span class="delete" style="visibility: hidden;"><img style="width: 15px; height: 15px;" src="static/x-icon.png" alt="delete message"></span></li>{% endraw %}
+    </script>
+    <script>
+      // THIS IS FOR START USING INSTANT CHAT MESSAGING WITH SOCKET
+      // Start Socket connection
+      var socket = io.connect(
+        location.protocol + "//" + document.domain + ":" + location.port
+      );
+      var template = Handlebars.compile(
+        document.querySelector("#template").innerHTML
+      );
+      // The channel list is now just that, a list.
+      var list = document.querySelector("#channelList");
+
+      // To avoid ask too many times to DOM
+      var chatWindow = document.querySelector("#chatWindow");
+      var chatMessages = document.querySelector("#chatMessages");
+      var formTyping = document.querySelector("#formTyping");
+      var message = document.querySelector("#message");
+      var allChannels = document.querySelector("#channelList").childNodes;
+
+      if ("lastChannel") {
+        for (let j = 0; j < allChannels.length; j++) {
+          if (allChannels[j].innerHTML == "{{ lastChannel }}") {
+            if (chatWindow.style.visibility === "hidden") {
+              chatWindow.style.visibility = "visible";
+            }
+
+            var title = document.querySelector("#title");
+            title.innerHTML = "{{ lastChannel }}";
+            socket.emit("update", { channel: title.innerHTML });
+          }
+        }
+      }
+      // And here I select now all the children
+      list.addEventListener("mouseenter", () => {
+        allChannels = document.querySelector("#channelList").childNodes;
+
+        if (allChannels != null) {
+          // For every child when clicked open the window, change window's title and emit for update messages
+          for (let i = 0; i < allChannels.length; i++) {
+            allChannels[i].onclick = () => {
+              if (chatWindow.style.visibility === "hidden") {
+                chatWindow.style.visibility = "visible";
+              }
+
+              var title = document.querySelector("#title");
+              title.innerHTML = allChannels[i].innerHTML;
+
+              // Trying to send the Channel name to the server for store in session
+              let request = new XMLHttpRequest();
+              request.open("POST", "/lastChannel");
+              request.setRequestHeader(
+                "content-type",
+                "application/x-www-form-urlencoded;charset=UTF-8"
+              );
+              request.send("lastChannel=" + title.innerHTML);
+
+              chatMessages.innerHTML = "";
+              socket.emit("update", { channel: title.innerHTML });
+              location.reload();
+            };
+          }
+        }
+      });
+      // On conect get ready to send messages when chatForm is submit
+      socket.on("connect", () => {
+        formTyping.onsubmit = () => {
+          socket.emit("sendMessage", {
+            channel: title.innerHTML,
+            message: message.value,
+          });
+          message.value = "";
+          return false;
+        };
+      });
+      // Update all olds messages. This is a response from the emit('update') above
+      socket.on("updateChat", function (data, name) {
+        if (data != "notFound") {
+          let username = document.querySelector("#user-data").dataset.username;
+
+          if (name == username) {
+            for (var i = 0; i < data.length; i++) {
+              if (data[i].message != null) {
+                oldLi = template({
+                  time: data[i].time,
+                  sender: data[i].sender,
+                  message: data[i].message,
+                });
+                chatMessages.innerHTML += oldLi;
+              }
+            }
+          }
+        } else {
+          chatMessages.innerHTML = "";
+        }
+      });
+      // Update last new message. This is a response from emit('sendMessage') above
+      socket.on("update", (data) => {
+        newLi = template({
+          time: data.time,
+          sender: data.sender,
+          message: data.message,
+        });
+        chatMessages.innerHTML += newLi;
+      });
+
+      // Make visible or not visible the delete option for messages
+      document.getElementsByClassName("chatMessages")[0].onmouseover = () => {
+        var cancel = Array.from(document.getElementsByClassName("delete"));
+
+        cancel.forEach((elem) => {
+          elem.parentElement.onmouseover = () => {
+            if (
+              elem.parentElement.dataset.sender ==
+              document.querySelector("#user-data").dataset.username
+            ) {
+              elem.style.visibility = "visible";
+            }
+          };
+          elem.parentElement.onmouseout = () => {
+            elem.style.visibility = "hidden";
+          };
+        });
+
+        cancel.forEach((elem) => {
+          elem.onclick = () => {
+            delMessage = elem.parentElement.children[0].innerHTML;
+            elem.parentElement.style.animationPlayState = "running";
+            elem.parentElement.addEventListener("animationend", () => {
+              elem.parentElement.remove();
+            });
+
+            let request = new XMLHttpRequest();
+            let data = new FormData();
+            channel = document.getElementById("title").innerHTML;
+            data.append("channel", channel);
+            data.append("message", delMessage);
+            request.open("POST", "/delete");
+            request.send(data);
+          };
+        });
+      };
+    </script>
     <!--jquery.js-->
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -152,190 +347,7 @@
     <script
       src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
       integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-      crossorigin="anonymous"></script>
-    <!--handlebars-->
-    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
-    <!--javascript-->
-    <script type="text/javascript" src="static/js/main.js"></script>
-    <script>
-    // THIS IS FOR CREATING A NEW CHANNEL
-    document.addEventListener('DOMContentLoaded', () => {
-      // Once the Display Name has been provided
-      if (document.querySelector('#channelContainer')){
-        // When a new Channel is attempted to be created
-        document.querySelector('#formChannel').onsubmit = () => {
-          // New form request and formData
-          let request = new XMLHttpRequest;
-          let data = new FormData();
-          let channel = document.querySelector('#channel').value;
-
-          if (channel == '') {
-            document.querySelector('#channelMessage').innerHTML = "This field can`t be empty!";
-            return false;
-          } else {
-
-            data.append('channel', channel);
-            request.open('POST', '/channel');
-            request.send(data);
-            request.onload = () => {
-              let data = JSON.parse(request.responseText);
-
-              if (data.success){
-                let list = document.querySelector('#channelList');
-                // Remove all channels before insert all the new one. Just in case some would be removed
-                while (list.firstChild) {
-                  list.removeChild(list.firstChild);
-                }
-                // Now, for everyone create a new li tag
-                for (let i = 0; i < data.channels.length ; i++){
-                  let elem = document.createElement('li');
-                  elem.className = 'channel-list-item';
-                  elem.innerHTML = data.channels[i]["name"];
-                  list.append(elem);
-                }
-
-                // Messages to show for the User
-                document.querySelector('#channelMessage').innerHTML = `Your channel ${channel} has been created`;
-
-              }else{
-                document.querySelector('#channelMessage').innerHTML = `There was an error. ${channel} already exist`;
-              }
-            }
-            // Stop the form submission
-            return false;
-          }
-        }
-      }
-    });
-  </script>
-    <script id="template" type="text/template">
-    {% raw %}<li data-sender="{{ sender }}" class="hiddingMessage message">{{time}} | {{sender}} says: <span id="justMessage">{{message}}</span> &nbsp &nbsp <span class="delete" style="visibility: hidden;"><img style="width: 15px; height: 15px;" src="static/x-icon.png" alt="delete message"></span></li>{% endraw %}
-    </script>
-    <script>
-      // THIS IS FOR START USING INSTANT CHAT MESSAGING WITH SOCKET
-    // Start Socket connection
-    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
-    var template = Handlebars.compile(document.querySelector('#template').innerHTML);
-    // The channel list is now just that, a list.
-    var list = document.querySelector('#channelList');
-
-    // To avoid ask too many times to DOM
-    var chatWindow = document.querySelector('#chatWindow');
-    var chatMessages = document.querySelector('#chatMessages');
-    var formTyping = document.querySelector('#formTyping');
-    var message = document.querySelector('#message');
-    var allChannels = document.querySelector('#channelList').childNodes;
-
-    {%if lastChannel%}
-      for ( let j = 0; j < allChannels.length; j++){
-        if (allChannels[j].innerHTML == "{{ lastChannel }}"){
-          if (chatWindow.style.visibility === "hidden"){
-            chatWindow.style.visibility = 'visible';
-          }
-
-          var title = document.querySelector('#title');
-          title.innerHTML = "{{ lastChannel }}";
-          socket.emit('update', {"channel": title.innerHTML});
-        }
-      }
-    {%endif%}
-    // And here I select now all the children
-    list.addEventListener('mouseenter', () => {
-      allChannels = document.querySelector('#channelList').childNodes;
-
-      if (allChannels != null){
-
-        // For every child when clicked open the window, change window's title and emit for update messages
-        for (let i = 0; i < allChannels.length; i++){
-          allChannels[i].onclick = () => {
-
-            if (chatWindow.style.visibility === "hidden"){
-              chatWindow.style.visibility = 'visible';
-            }
-
-            var title = document.querySelector('#title');
-            title.innerHTML = allChannels[i].innerHTML;
-
-            // Trying to send the Channel name to the server for store in session
-            let request = new XMLHttpRequest;
-            request.open('POST', '/lastChannel')
-            request.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-            request.send("lastChannel=" + title.innerHTML);
-
-            chatMessages.innerHTML = '';
-            socket.emit('update', {"channel": title.innerHTML});
-            location.reload()
-          }
-        }
-      }
-    });
-    // On conect get ready to send messages when chatForm is submit
-    socket.on('connect', () => {
-
-      formTyping.onsubmit = () => {
-        socket.emit('sendMessage', {"channel": title.innerHTML, "message": message.value});
-        message.value = '';
-        return false;
-      }
-    });
-    // Update all olds messages. This is a response from the emit('update') above
-    socket.on('updateChat', function(data, name) {
-      if (data != 'notFound'){
-        let username = document.querySelector('#user-data').dataset.username;
-
-        if (name == username) {
-          for (var i = 0; i < data.length; i++){
-
-            if (data[i].message != null){
-              oldLi = template({"time": data[i].time, "sender": data[i].sender, "message": data[i].message});
-              chatMessages.innerHTML += oldLi;
-            }
-          }
-        }
-      }else{
-        chatMessages.innerHTML = '';
-      }
-    });
-    // Update last new message. This is a response from emit('sendMessage') above
-    socket.on('update', data => {
-      newLi = template({"time": data.time, "sender": data.sender, "message": data.message});
-      chatMessages.innerHTML += (newLi);
-    });
-
-    // Make visible or not visible the delete option for messages
-    document.getElementsByClassName('chatMessages')[0].onmouseover = () => {
-
-        var cancel = Array.from(document.getElementsByClassName("delete"));
-
-        cancel.forEach(elem => {
-          elem.parentElement.onmouseover = () => {
-            if (elem.parentElement.dataset.sender == document.querySelector('#user-data').dataset.username) {
-              elem.style.visibility = "visible";
-            }
-          }
-          elem.parentElement.onmouseout = () => {
-          elem.style.visibility = "hidden";
-          }
-        });
-
-        cancel.forEach(elem => {
-          elem.onclick = () => {
-            delMessage = elem.parentElement.children[0].innerHTML;
-            elem.parentElement.style.animationPlayState = 'running';
-            elem.parentElement.addEventListener('animationend', () => {
-              elem.parentElement.remove();
-            });
-
-            let request = new XMLHttpRequest;
-            let data = new FormData;
-            channel = document.getElementById('title').innerHTML;
-            data.append("channel", channel);
-            data.append("message", delMessage);
-            request.open("POST", "/delete");
-            request.send(data);
-          }
-        });
-    }
-    </script>
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

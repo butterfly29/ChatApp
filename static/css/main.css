@@ -1,38 +1,36 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-
+html,
 body {
   background-color: white;
   font-family: Arial, Helvetica, sans-serif;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .sidebar3 {
-  padding-top: 30px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 20px 20px 0 20px;
   background-color: #809dd0;
 }
 .sidebar3 p {
   color: white;
 }
 h1 {
-  font-size: 24px;
+  font-size: 28px;
   color: white;
 }
 h2,
 h3 {
-  font-size: 17px;
+  font-size: 19px;
   color: white;
 }
 /* app name*/
 .name {
   display: inline;
   clear: right;
-  padding: 5px;
-  vertical-align: center;
-  padding-top: 10px;
+  padding: 10px 5px 5px 5px;
   text-align: center;
 }
 /* Style the form - display items horizontally */
@@ -55,7 +53,7 @@ h3 {
 .form-inline button {
   border-color: #f3a827;
   margin-left: 10px;
-  padding: 5px 0 5px 10px;
+  padding: 7px 0 7px 10px;
 }
 i {
   display: inline-block;
@@ -71,12 +69,6 @@ li {
 ul {
   padding-left: 0px;
 }
-.dropdown .fa-plus {
-  border: 1px solid #848fd8;
-  padding: 4px;
-  margin-top: -2px;
-  margin-right: 0px;
-}
 
 .list {
   padding-left: 20px;
@@ -84,12 +76,13 @@ ul {
 .submenu > li {
   display: list-item;
   list-style-type: square;
+  border-bottom: none;
 }
 .submenu {
   padding-left: 12px;
 }
 .submenu > li:hover {
-  color: #f3a827;
+  font-weight: bold;
 }
 li:hover {
   background-color: rgba(255, 255, 255, 0.25);
@@ -97,23 +90,56 @@ li:hover {
 }
 .main-content {
   text-align: right;
+  border: 1px solid #809dd0;
+  border-radius: 5px;
+  margin: 10px;
+  min-width: 72vw;
+  min-height: 97vh;
 }
 .main-content > p > a {
   color: white;
 }
 div.chatWindow {
-  height: 20em;
-  border: 1px solid #809dd0;
-  border-radius: 5px;
+  height: 70vh;
+  min-width: 50vw;
 }
 div.chatMessages {
-  height: 15em;
-  background-color: blue;
+  height: 100%;
   border-radius: 5px;
   overflow: scroll;
 }
+hr {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #f3a827;
+  opacity: 0.5;
+}
 div.chatTyping {
-  height: 5em;
+  height: 50px;
+  width: 100%;
+  margin-top: 30px;
+}
+.chatTyping .btn {
+  background-color: #f3a827;
+  border-color: #f3a827;
+}
+.chatTyping input {
+  border-color: #f3a82771;
+  height: 70px;
+}
+.hiddingMessage {
+  margin-bottom: 5px;
+  animation-name: hide;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
+}
+.message {
+  font-size: 0.9rem;
+}
+.delete {
+  cursor: pointer;
 }
 @keyframes hide {
   0% {
@@ -134,19 +160,7 @@ div.chatTyping {
     margin-bottom: 0px;
   }
 }
-.hiddingMessage {
-  margin-bottom: 5px;
-  animation-name: hide;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-  animation-play-state: paused;
-}
-.message {
-  font-size: 0.9rem;
-}
-.delete {
-  cursor: pointer;
-}
+
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
 }

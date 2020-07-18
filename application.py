@@ -33,7 +33,7 @@ def index():
 def name():
     name = request.form.get("name")
     """If Display Name not empty create and remember in session"""
-    if name is not '':
+    if name is not None:
         session["name"] = name
         return jsonify({"success": True, "name": name})
     else:
