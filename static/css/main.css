@@ -3,11 +3,9 @@
   margin: 0;
   padding: 0;
 }
-html,
 body {
   background-color: white;
   font-family: Arial, Helvetica, sans-serif;
-  min-height: 100vh;
 }
 
 .sidebar3 {
@@ -66,9 +64,6 @@ li {
   border-bottom: 1px solid #fdfdfd75;
   color: white;
 }
-ul {
-  padding-left: 0px;
-}
 
 .list {
   padding-left: 20px;
@@ -96,29 +91,52 @@ li:hover {
   min-width: 72vw;
   min-height: 97vh;
 }
-.main-content > p > a {
-  color: white;
-}
+
 div.chatWindow {
   height: 70vh;
   min-width: 50vw;
+  overflow-y: scroll;
 }
-div.chatMessages {
-  height: 100%;
+.hiddingMessage {
+  margin: 5px 5px 5px 0;
+  padding: 10px;
   border-radius: 5px;
-  overflow: scroll;
+  width: 50%;
+  color: #809dd0;
+  animation-name: hide;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
+  background-color: #809dd07c;
+  height: fit-content;
+  float: right;
 }
+#justMessage {
+  word-wrap: break-word;
+  font-size: 1rem;
+  margin-top: 10px;
+  color: #385b96;
+  display: inline-block;
+  line-height: 1;
+}
+.message {
+  font-size: 0.9rem;
+}
+.delete {
+  cursor: pointer;
+}
+
 hr {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #f3a827;
+  width: 73%;
+  background-color: #f3a82771;
   opacity: 0.5;
 }
 div.chatTyping {
+  position: fixed;
+  bottom: 10%;
   height: 50px;
   width: 100%;
-  margin-top: 30px;
+  margin: 10px 0px 30px 0px;
 }
 .chatTyping .btn {
   background-color: #f3a827;
@@ -127,19 +145,8 @@ div.chatTyping {
 .chatTyping input {
   border-color: #f3a82771;
   height: 70px;
-}
-.hiddingMessage {
-  margin-bottom: 5px;
-  animation-name: hide;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-  animation-play-state: paused;
-}
-.message {
-  font-size: 0.9rem;
-}
-.delete {
-  cursor: pointer;
+  width: 65%;
+  margin-right: 30px;
 }
 @keyframes hide {
   0% {
